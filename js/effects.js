@@ -44,7 +44,7 @@ const resetFilters = () => {
 };
 
 const initiateSlider = () => {
-  const addEffects = (evt) => {
+  const onEffectsListClick = (evt) => {
     const effect = evt.target.closest('.effects__radio');
     effectSlider.classList.remove('hidden');
     effectSlider.noUiSlider.off();
@@ -121,7 +121,7 @@ const initiateSlider = () => {
     }
   };
 
-  effectsList.addEventListener('click', addEffects);
+  effectsList.addEventListener('click', onEffectsListClick);
 };
 
 export {initiateSlider, resetFilters};

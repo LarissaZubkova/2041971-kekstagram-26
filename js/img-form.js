@@ -10,32 +10,32 @@ const cancelButton = document.querySelector('#upload-cancel');
 const hashtagsInput = document.querySelector('.text__hashtags');
 const commentTextarea = document.querySelector('.text__description');
 
-const closeUploadFile = () => {
+const onCancelButtonClick = () => {
   imgUpload.classList.add('hidden');
   body.classList.remove('modal-open');
-  document.removeEventListener('keydown', onUploadFileCKeydown);
-  cancelButton.removeEventListener('click', closeUploadFile);
+  document.removeEventListener('keydown', onUploadFileKeydown);
+  cancelButton.removeEventListener('click', onCancelButtonClick);
   imgFile.value = '';
   resetFilters();
   resetScale();
   pristine.reset();
 };
 
-function onUploadFileCKeydown (evt) {
+function onUploadFileKeydown (evt) {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
-    closeUploadFile();
+    onCancelButtonClick();
   }
 }
 
-const uploadFile = () => {
+const onImgFileChange = () => {
   imgUpload.classList.remove('hidden');
   body.classList.add('modal-open');
-  document.addEventListener('keydown', onUploadFileCKeydown);
-  cancelButton.addEventListener('click', closeUploadFile);
+  document.addEventListener('keydown', onUploadFileKeydown);
+  cancelButton.addEventListener('click', onCancelButtonClick);
 };
 
-imgFile.addEventListener('change', uploadFile);
+imgFile.addEventListener('change', onImgFileChange);
 
 const onFocusInputEscKeydown = (evt) => {
   if (isEscapeKey(evt)) {
@@ -46,4 +46,4 @@ const onFocusInputEscKeydown = (evt) => {
 hashtagsInput.addEventListener('keydown', onFocusInputEscKeydown);
 commentTextarea.addEventListener('keydown', onFocusInputEscKeydown);
 
-export {closeUploadFile};
+export {onCancelButtonClick};

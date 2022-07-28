@@ -1,6 +1,6 @@
 import {getRandomeInInclusie, debounce} from './util.js';
 import {generateThumbnails} from './thumbnails.js';
-import {initiatePopup} from './popup.js';
+import {setPhotoDataForPopup} from './popup.js';
 
 const RERENDER_DELAY = 500;
 const RANDOM_PHOTO_MAX_COUNT = 10;
@@ -32,10 +32,11 @@ const setFilterClick = (photos) => {
   const discussedButton = imgFilters.querySelector('#filter-discussed');
 
   imgFilters.classList.remove('img-filters--inactive');
-  imgFilters.addEventListener('click', debounce((evt) => renderFilters(evt), RERENDER_DELAY));
+  imgFilters.addEventListener('click', debounce((evt) => onImgFiltersClick(evt), RERENDER_DELAY));
 
-  function renderFilters (evt) {
+  function onImgFiltersClick (evt) {
     const filter = evt.target.closest('.img-filters__button');
+    let photoData;
     if (filter) {
       switch (filter.id) {
 
@@ -44,8 +45,9 @@ const setFilterClick = (photos) => {
           randomButton.classList.add('img-filters__button--active');
           discussedButton.classList.remove('img-filters__button--active');
           removePhoto();
-          generateThumbnails(getRandomPhotos(photos));
-          initiatePopup(getRandomPhotos(photos));
+          photoData = getRandomPhotos(photos);
+          generateThumbnails(photoData);
+          setPhotoDataForPopup(photoData);
           break;
 
         case 'filter-discussed':
@@ -54,25 +56,17 @@ const setFilterClick = (photos) => {
           discussedButton.classList.add('img-filters__button--active');
           removePhoto();
           generateThumbnails(getDiscussedPhotos(photos));
-          initiatePopup(getDiscussedPhotos(photos));
+          setPhotoDataForPopup(getDiscussedPhotos(photos));
           break;
 
         case 'filter-default':
-          defaultButton.classList.add('img-filters__button--active');
-          randomButton.classList.remove('img-filters__button--active');
-          discussedButton.classList.remove('img-filters__button--active');
-          removePhoto();
-          generateThumbnails(photos);
-          initiatePopup(photos);
-          break;
-
         default:
           defaultButton.classList.add('img-filters__button--active');
           randomButton.classList.remove('img-filters__button--active');
           discussedButton.classList.remove('img-filters__button--active');
           removePhoto();
           generateThumbnails(photos);
-          initiatePopup(photos);
+          setPhotoDataForPopup(photos);
       }
     }}
 };

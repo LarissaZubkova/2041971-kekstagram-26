@@ -1,10 +1,10 @@
 import {getData} from './api.js';
 import {generateThumbnails} from './thumbnails.js';
-import {initiatePopup} from './popup.js';
+import {initiatePopup, setPhotoDataForPopup} from './popup.js';
 import {changeScale} from './scale.js';
 import {initiateSlider} from './effects.js';
 import {setUserFormSubmit} from './validation.js';
-import {closeUploadFile} from './img-form.js';
+import {onCancelButtonClick} from './img-form.js';
 import {setFilterClick} from './set-filters.js';
 import {uploadFile} from './upload-file.js';
 
@@ -14,8 +14,9 @@ uploadFile();
 
 getData((photos) => {
   generateThumbnails(photos);
-  initiatePopup(photos);
+  setPhotoDataForPopup(photos);
+  initiatePopup();
   setFilterClick(photos);
 });
 
-setUserFormSubmit(closeUploadFile);
+setUserFormSubmit(onCancelButtonClick);

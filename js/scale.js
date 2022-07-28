@@ -10,7 +10,7 @@ const changeScale = () => {
   const scaleSmaller = document.querySelector('.scale__control--smaller');
   const scaleBigger = document.querySelector('.scale__control--bigger');
 
-  const onScaleButtonScallSmoller = () => {
+  const onScaleSmollerClick = () => {
     if (scaleCarrentValue > MIN_VALUE && scaleCarrentValue <= MAX_VALUE) {
       scaleCarrentValue -= SCALE_STEP;
       scaleValue.value = `${scaleCarrentValue}%`;
@@ -18,7 +18,7 @@ const changeScale = () => {
     }
   };
 
-  const onScaleButtonScallBigger = () => {
+  const onScaleBiggerClick = () => {
     if (scaleCarrentValue < MAX_VALUE && scaleCarrentValue >= MIN_VALUE) {
       scaleCarrentValue += SCALE_STEP;
       scaleValue.value = `${scaleCarrentValue}%`;
@@ -26,8 +26,8 @@ const changeScale = () => {
     }
   };
 
-  scaleSmaller.addEventListener('click', onScaleButtonScallSmoller);
-  scaleBigger.addEventListener('click', onScaleButtonScallBigger);
+  scaleSmaller.addEventListener('click', onScaleSmollerClick);
+  scaleBigger.addEventListener('click', onScaleBiggerClick);
 };
 
 const resetScale = () => {

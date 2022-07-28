@@ -14,26 +14,26 @@ const showMessageSuccess = () => {
 
   const onMessageEscDown = () => {
     if (isEscapeKey) {
-      closeMessage();
+      onSuccessButtonClick();
     }
   };
 
-  const onDocumentClickCansel = (evt) => {
+  const onDocumentClick = (evt) => {
     if (evt.target.closest('.success__inner') !== successInner) {
-      closeMessage();
+      onSuccessButtonClick();
     }
   };
 
-  function closeMessage () {
+  function onSuccessButtonClick () {
     messageElement.classList.add('hidden');
-    successButton.removeEventListener('click', closeMessage);
+    successButton.removeEventListener('click', onSuccessButtonClick);
     document.removeEventListener('keydown', onMessageEscDown);
-    document.removeEventListener('click', onDocumentClickCansel);
+    document.removeEventListener('click', onDocumentClick);
   }
 
-  successButton.addEventListener('click', closeMessage);
+  successButton.addEventListener('click', onSuccessButtonClick);
   document.addEventListener('keydown', onMessageEscDown);
-  document.addEventListener('click', onDocumentClickCansel);
+  document.addEventListener('click', onDocumentClick);
 };
 
 const showMessageError = () => {
@@ -52,25 +52,25 @@ const showMessageError = () => {
 
   const onMessageEscDown = () => {
     if (isEscapeKey) {
-      closeMessage();
+      onErrorButtonClick();
     }
   };
 
   const onDocumentClickCansel = (evt) => {
     if (evt.target.closest('.error__inner') !== errorInner) {
-      closeMessage();
+      onErrorButtonClick();
     }
   };
 
-  function closeMessage () {
+  function onErrorButtonClick () {
     messageElement.classList.add('hidden');
     imgUpload.classList.remove('hidden');
-    errorButton.removeEventListener('click', closeMessage);
+    errorButton.removeEventListener('click', onErrorButtonClick);
     document.removeEventListener('keydown', onMessageEscDown);
     document.removeEventListener('click', onDocumentClickCansel);
   }
 
-  errorButton.addEventListener('click', closeMessage);
+  errorButton.addEventListener('click', onErrorButtonClick);
   document.addEventListener('keydown', onMessageEscDown);
   document.addEventListener('click', onDocumentClickCansel);
 };
